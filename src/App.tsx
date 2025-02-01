@@ -7,7 +7,9 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/survey/:surveyId/:step" element={<SurveyPage />} />
+        <Route path="/survey/:surveyId" element={<SurveyPage />}>
+          <Route path=":step" element={<SurveyPage />} />
+        </Route>
         <Route path="/done" element={<CompletionPage />} />
       </Routes>
     </div>
