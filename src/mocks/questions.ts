@@ -1,4 +1,4 @@
-interface QustionOptionsType {
+export interface QustionOptionsType {
   selectMax?: number
   inputMin?: number
   placeholder?: string
@@ -20,19 +20,23 @@ export const questions: QuestionType[] = [
     description: '설명1',
     type: 'text',
     required: false,
-    options: {},
+    options: {
+      placeholder: 'placeholder',
+    },
   },
   {
     title: '질문2',
     description: '설명2',
-    type: 'text',
+    type: 'textarea',
     required: false,
-    options: {},
+    options: {
+      placeholder: 'placeholder',
+    },
   },
   {
     title: '질문3',
     description: '설명3',
-    type: 'text',
+    type: 'select',
     required: false,
     options: {},
   },
