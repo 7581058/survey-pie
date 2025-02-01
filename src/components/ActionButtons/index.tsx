@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router'
 
+import Button from '../Button'
 import { StepProps } from '../QuestionBox'
 
 const ActionButtons = ({ questionsLength, step }: StepProps) => {
@@ -8,12 +9,18 @@ const ActionButtons = ({ questionsLength, step }: StepProps) => {
   return (
     <div>
       {step === 0 || (
-        <button onClick={() => navigate(`${step - 1}`)}>이전</button>
+        <Button StyleType="SECONDARY" onClick={() => navigate(`${step - 1}`)}>
+          이전
+        </Button>
       )}
       {isLast ? (
-        <button onClick={() => navigate('/done')}>제출</button>
+        <Button StyleType="PRIMARY" onClick={() => navigate('/done')}>
+          제출
+        </Button>
       ) : (
-        <button onClick={() => navigate(`${step + 1}`)}>다음</button>
+        <Button StyleType="PRIMARY" onClick={() => navigate(`${step + 1}`)}>
+          다음
+        </Button>
       )}
     </div>
   )
