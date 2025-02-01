@@ -1,11 +1,13 @@
 import { useState } from 'react'
+import { useParams } from 'react-router'
 
 import ProgressIndicator from '../../components/ProgressIndicator'
 import QuestionBox from '../../components/QuestionBox'
 import { questions } from '../../mocks/questions'
 
 const SurveyPage = () => {
-  const step = 0
+  const params = useParams()
+  const step = Number(params.step)
 
   const [answers, setAnswers] = useState([])
   return (
