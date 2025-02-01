@@ -10,7 +10,7 @@ export interface BodyProps extends AnswerProps {
   type: QuestionInputType
 }
 
-const Body = ({ type, answer, setAnswer }: BodyProps) => {
+const Body = ({ type, answer, setAnswer, options }: BodyProps) => {
   let InputComponent: React.ElementType | null = null
   if (type === 'select') {
     InputComponent = SelectInput
@@ -23,7 +23,11 @@ const Body = ({ type, answer, setAnswer }: BodyProps) => {
   return (
     <div>
       {InputComponent && (
-        <InputComponent answer={answer} setAnswer={setAnswer} />
+        <InputComponent
+          answer={answer}
+          setAnswer={setAnswer}
+          options={options}
+        />
       )}
     </div>
   )
