@@ -10,7 +10,7 @@ const TextInput = ({ answer, setAnswer, options }: AnswerProps) => {
       onChange={(e) => {
         setAnswer(e.target.value)
       }}
-      placeholder={options.placeholder}
+      placeholder={options?.placeholder}
     />
   )
 }
