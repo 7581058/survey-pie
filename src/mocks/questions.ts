@@ -2,6 +2,7 @@ export interface QustionOptionsType {
   selectMax?: number
   inputMin?: number
   placeholder?: string
+  items?: string[]
 }
 
 export type QuestionInputType = 'select' | 'text' | 'textarea'
@@ -38,6 +39,8 @@ export const questions: QuestionType[] = [
     description: '설명3',
     type: 'select',
     required: false,
-    options: {},
+    options: {
+      items: ['답변1', '답변2', '답변3', '답변4', '답변5'],
+    },
   },
 ]
