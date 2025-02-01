@@ -2,6 +2,8 @@ import React from 'react'
 
 import { QuestionInputType } from '../../mocks/questions'
 import { AnswerProps } from '../QuestionBox'
+import SelectInput from '../SelectInput'
+import TextAreaInput from '../TextAreaInput'
 import TextInput from '../TextInput'
 
 export interface BodyProps extends AnswerProps {
@@ -11,11 +13,11 @@ export interface BodyProps extends AnswerProps {
 const Body = ({ type, answer, setAnswer }: BodyProps) => {
   let InputComponent: React.ElementType | null = null
   if (type === 'select') {
-    //inputComponent = TextInput
+    InputComponent = SelectInput
   } else if (type === 'text') {
     InputComponent = TextInput
   } else if (type === 'textarea') {
-    //inputComponent = TextInput
+    InputComponent = TextAreaInput
   }
 
   return (
