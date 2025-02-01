@@ -1,23 +1,44 @@
+import React from 'react'
 import styled from 'styled-components'
 
 import { AnswerProps } from '../QuestionBox'
 
-const SelectItem = ({ children }) => {
+interface SelectItemProps {
+  children: React.ReactNode
+  onChange: React.ChangeEventHandler<HTMLInputElement>
+}
+const SelectItem = ({ children, onChange }: SelectItemProps) => {
   return (
     <ItemWrap>
       <label>
-        <input type="checkbox" />
+        <input type="checkbox" onChange={onChange} />
         <span />
         <div>{children}</div>
       </label>
     </ItemWrap>
   )
 }
-const SelectInput = ({ answer, setAnswer, options }: AnswerProps) => {
+const SelectInput = ({ answer = [], setAnswer, options }: AnswerProps) => {
+  const handleChange = (isChecked: boolean, index: number) => {
+    if (isChecked) {
+      setAnswer([...answer, index])
+    } else {
+      setAnswer(answer.filter((item: number) => item !== index))
+    }
+  }
   return (
     <SelectInputWrap>
       {options?.items?.map((item, index) => {
-        return <SelectItem key={index}>{item}</SelectItem>
+        return (
+          <SelectItem
+            key={index}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(e.target.checked, index)
+            }
+          >
+            {item}
+          </SelectItem>
+        )
       })}
     </SelectInputWrap>
   )
