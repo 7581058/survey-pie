@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import { QuestionInputType } from '../../mocks/questions'
 import { AnswerProps } from '../QuestionBox'
@@ -21,7 +22,7 @@ const Body = ({ type, answer, setAnswer, options }: BodyProps) => {
   }
 
   return (
-    <div>
+    <BodyWrap>
       {InputComponent && (
         <InputComponent
           answer={answer}
@@ -29,8 +30,14 @@ const Body = ({ type, answer, setAnswer, options }: BodyProps) => {
           options={options}
         />
       )}
-    </div>
+    </BodyWrap>
   )
 }
 
 export default Body
+
+const BodyWrap = styled.div`
+  margin: 0 38px;
+  flex: 1;
+  height: 100%;
+`
