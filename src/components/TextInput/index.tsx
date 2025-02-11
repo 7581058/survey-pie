@@ -22,7 +22,8 @@ const TextInputStyle = styled.input`
   box-sizing: border-box;
   border-radius: 5px;
   padding: 12px 18px;
-
+  width: 100%;
+  height: 45px;
   &::placeholder {
     color: #bdbdbd;
   }

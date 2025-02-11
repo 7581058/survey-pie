@@ -19,6 +19,7 @@ const TextAreaStyle = styled.textarea`
 
   font-size: 18px;
   line-height: 21px;
+  width: 100%;
   height: 196px;
   resize: none;
   &::placeholder {
