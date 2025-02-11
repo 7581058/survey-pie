@@ -1,33 +1,19 @@
-import { useState } from 'react'
-import { useParams } from 'react-router'
+import styled from 'styled-components'
 
 import ProgressIndicator from '../../components/ProgressIndicator'
 import QuestionBox from '../../components/QuestionBox'
-import { questions } from '../../mocks/questions'
 
 const SurveyPage = () => {
-  const params = useParams()
-  const step = Number(params.step)
-
-  const [answers, setAnswers] = useState([])
   return (
-    <div>
+    <SurveyPageWrap>
       <ProgressIndicator />
-      <QuestionBox
-        question={questions[step]}
-        questionsLength={questions.length}
-        step={step}
-        answer={answers[step]}
-        setAnswer={(newAnswer) => {
-          setAnswers((answers) => {
-            const newAnswers = [...answers]
-            newAnswers[step] = newAnswer
-            return newAnswers
-          })
-        }}
-      />
-    </div>
+      <QuestionBox />
+    </SurveyPageWrap>
   )
 }
 
 export default SurveyPage
+
+const SurveyPageWrap = styled.div`
+  width: 100%;
+`
