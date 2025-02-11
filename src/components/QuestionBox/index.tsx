@@ -1,3 +1,5 @@
+import styled from 'styled-components'
+
 import { QuestionType, QustionOptionsType } from '../../mocks/questions'
 import ActionButtons from '../ActionButtons'
 import Body from '../Body'
@@ -13,7 +15,7 @@ export interface StepProps {
 export interface AnswerProps {
   answer: any
   setAnswer: any
-  options: QustionOptionsType | null
+  options?: QustionOptionsType | null
 }
 
 interface QuestionBoxProps extends StepProps, AnswerProps {
@@ -27,18 +29,24 @@ const QuestionBox = ({
   setAnswer,
 }: QuestionBoxProps) => {
   return (
-    <div>
+    <QuestionBoxWrap>
       <Title>{question.title}</Title>
+      <Description>{question.description}</Description>
       <Body
         type={question.type}
         answer={answer}
         setAnswer={setAnswer}
         options={question.options}
       />
-      <Description>{question.description}</Description>
       <ActionButtons questionsLength={questionsLength} step={step} />
-    </div>
+    </QuestionBoxWrap>
   )
 }
 
 export default QuestionBox
+
+const QuestionBoxWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`
