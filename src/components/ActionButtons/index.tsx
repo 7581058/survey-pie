@@ -15,16 +15,16 @@ const ActionButtons = () => {
   return (
     <ActionButtonsWrap>
       {step === 0 || (
-        <Button StyleType="SECONDARY" onClick={() => navigate(`${step - 1}`)}>
+        <Button styletype="SECONDARY" onClick={() => navigate(`${step - 1}`)}>
           이전
         </Button>
       )}
       {isLast ? (
-        <Button StyleType="PRIMARY" onClick={() => navigate('/done')}>
+        <Button styletype="PRIMARY" onClick={() => navigate('/done')}>
           제출
         </Button>
       ) : (
-        <Button StyleType="PRIMARY" onClick={() => navigate(`${step + 1}`)}>
+        <Button styletype="PRIMARY" onClick={() => navigate(`${step + 1}`)}>
           다음
         </Button>
       )}
