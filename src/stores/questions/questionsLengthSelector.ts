@@ -1,11 +1,11 @@
 import { selector } from 'recoil'
 
-import { questionsAtom } from './atom'
+import { questionsSelector } from './questionsSelector'
 
 export const questionsLengthSelector = selector({
   key: 'questionsLengthSelector',
   get: ({ get }) => {
-    const questions = get(questionsAtom)
+    const questions = get(questionsSelector).questions
     return questions.length
   },
 })
