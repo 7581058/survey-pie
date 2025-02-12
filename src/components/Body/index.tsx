@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { QuestionInputType } from '../../mocks/questions'
-import { AnswerProps } from '../QuestionBox'
+import { AnswerProps } from '../../types'
 import SelectInput from '../SelectInput'
 import TextAreaInput from '../TextAreaInput'
 import TextInput from '../TextInput'
