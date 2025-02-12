@@ -1,8 +1,11 @@
 import { atom } from 'recoil'
 
-import { questions } from '../../mocks/questions'
-
 export const questionsAtom = atom({
   key: 'questionsAtom',
-  default: questions,
+  default: null,
+  /* 
+    id: 1,
+    title: '타이틀',
+    questions: [questions],
+  */
 })
