@@ -1,17 +1,24 @@
 import isPropValid from '@emotion/is-prop-valid'
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useRecoilValue } from 'recoil'
 import styled, { StyleSheetManager } from 'styled-components'
 
+import { useAnswers } from '../../hooks/useAnswers'
 import { useStep } from '../../hooks/useStep'
+import { useSurveyId } from '../../hooks/useSurveyId'
+import { postAnswers } from '../../services/apis'
 import { questionsLengthSelector } from '../../stores/questions/questionsLengthSelector'
 import Button from '../Button'
 
 const ActionButtons = () => {
-  const navigate = useNavigate()
-  const questionsLength = useRecoilValue(questionsLengthSelector)
   const step = useStep()
+  const surveyId = useSurveyId()
+  const navigate = useNavigate()
+  const answers = useAnswers()
+  const questionsLength = useRecoilValue(questionsLengthSelector)
   const isLast = questionsLength - 1 === step
+  const [isLoading, setIsLoading] = useState(false)
 
   return (
     <StyleSheetManager shouldForwardProp={(prop) => isPropValid(prop)}>
@@ -22,8 +29,23 @@ const ActionButtons = () => {
           </Button>
         )}
         {isLast ? (
-          <Button styletype="PRIMARY" onClick={() => navigate('/done')}>
-            제출
+          <Button
+            styletype="PRIMARY"
+            disabled={isLoading}
+            onClick={() => {
+              setIsLoading(true)
+              postAnswers(surveyId, answers)
+                .then(() => {
+                  navigate(`/done/${surveyId}`)
+                })
+                .catch((err) => {
+                  console.log(err.response)
+                  alert('응답 제출에 실패했습니다. 다시 시도해주세요.')
+                  setIsLoading(false)
+                })
+            }}
+          >
+            {isLoading ? '제출 중입니다...' : '제출'}
           </Button>
         ) : (
           <Button styletype="PRIMARY" onClick={() => navigate(`${step + 1}`)}>
