@@ -1,19 +1,4 @@
-export interface QustionOptionsType {
-  selectMax?: number
-  inputMin?: number
-  placeholder?: string
-  items?: string[]
-}
-
-export type QuestionInputType = 'select' | 'text' | 'textarea'
-
-export interface QuestionType {
-  title: string
-  description: string
-  type: QuestionInputType
-  required: boolean
-  options: QustionOptionsType | null
-}
+import { QuestionType } from './../types/index'
 
 export const questions: QuestionType[] = [
   {

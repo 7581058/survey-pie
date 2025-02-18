@@ -1,7 +1,11 @@
 import styled from 'styled-components'
 
 import { AnswerProps } from '../../types'
-const TextInput = ({ answer = '', setAnswer, options }: AnswerProps) => {
+const TextInput = ({
+  answer = '',
+  setAnswer,
+  options,
+}: AnswerProps<string>) => {
   return (
     <TextInputStyle
       type="text"

@@ -1,6 +1,8 @@
 import { atom } from 'recoil'
 
-export const answersAtom = atom({
+import { AnswersType } from '../../types'
+
+export const answersAtom = atom<AnswersType>({
   key: 'answersAtom',
   default: [],
 })

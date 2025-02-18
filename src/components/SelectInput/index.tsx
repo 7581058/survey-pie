@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { AnswerProps } from '../QuestionBox'
+import { AnswerProps } from '../../types'
 
 interface SelectItemProps {
   children: React.ReactNode
@@ -18,7 +18,11 @@ const SelectItem = ({ children, onChange }: SelectItemProps) => {
     </ItemWrap>
   )
 }
-const SelectInput = ({ answer = [], setAnswer, options }: AnswerProps) => {
+const SelectInput = ({
+  answer = [],
+  setAnswer,
+  options,
+}: AnswerProps<number[]>) => {
   const handleChange = (isChecked: boolean, index: number) => {
     if (isChecked) {
       setAnswer([...answer, index])

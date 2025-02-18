@@ -1,17 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { QuestionInputType } from '../../mocks/questions'
-import { AnswerProps } from '../../types'
+import { AnswerProps, QuestionInputType } from '../../types'
 import SelectInput from '../SelectInput'
 import TextAreaInput from '../TextAreaInput'
 import TextInput from '../TextInput'
 
-export interface BodyProps extends AnswerProps {
+export interface BodyProps<T> extends AnswerProps<T> {
   type: QuestionInputType
 }
 
-const Body = ({ type, answer, setAnswer, options }: BodyProps) => {
+const Body = <T,>({ type, answer, setAnswer, options }: BodyProps<T>) => {
   let InputComponent: React.ElementType | null = null
   if (type === 'select') {
     InputComponent = SelectInput
