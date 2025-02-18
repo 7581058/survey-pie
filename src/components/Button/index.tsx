@@ -11,9 +11,10 @@ const buttonStyles = {
 const Button = styled.button<{
   styletype: 'PRIMARY' | 'SECONDARY' | 'TERTIARY'
 }>`
-  width: 200px;
+  min-width: 200px;
   padding: 16px 24px;
   border-radius: 4px;
+  font-size: 18px;
   background-color: ${({ styletype }) =>
     buttonStyles[styletype].DEFAULT.BACKGROUND || '#fff'};
   color: ${({ styletype }) => buttonStyles[styletype].DEFAULT.COLOR || '#000'};
