@@ -1,12 +1,17 @@
 import styled from 'styled-components'
 
-import { QustionOptionsType } from '../../mocks/questions'
+import { AnswerProps } from '../../types'
 
-interface TextAreaInputProps {
-  options: QustionOptionsType
-}
-const TextAreaInput = ({ options }: TextAreaInputProps) => {
-  return <TextAreaStyle placeholder={options.placeholder} />
+const TextAreaInput = ({ answer = '', setAnswer, options }: AnswerProps) => {
+  return (
+    <TextAreaStyle
+      value={answer}
+      onChange={(e) => {
+        setAnswer(e.target.value)
+      }}
+      placeholder={options?.placeholder}
+    />
+  )
 }
 
 export default TextAreaInput
