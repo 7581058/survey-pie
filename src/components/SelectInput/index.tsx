@@ -6,12 +6,13 @@ import { AnswerProps } from '../../types'
 interface SelectItemProps {
   children: React.ReactNode
   onChange: React.ChangeEventHandler<HTMLInputElement>
+  checked: boolean
 }
-const SelectItem = ({ children, onChange }: SelectItemProps) => {
+const SelectItem = ({ children, onChange, checked }: SelectItemProps) => {
   return (
     <ItemWrap>
       <label>
-        <input type="checkbox" onChange={onChange} />
+        <input type="checkbox" onChange={onChange} checked={checked} />
         <span />
         <div>{children}</div>
       </label>
@@ -25,6 +26,8 @@ const SelectInput = ({
 }: AnswerProps<number[]>) => {
   const handleChange = (isChecked: boolean, index: number) => {
     if (isChecked) {
+      const max = options?.max ?? 1
+      if (answer.length >= max) return
       setAnswer([...answer, index])
     } else {
       setAnswer(answer.filter((item: number) => item !== index))
@@ -39,6 +42,7 @@ const SelectInput = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleChange(e.target.checked, index)
             }
+            checked={answer.includes(index)}
           >
             {item}
           </SelectItem>
