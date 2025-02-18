@@ -10,12 +10,12 @@ export interface AnswerType {
 export interface AnswerProps<T> {
   answer: T
   setAnswer: (newAnswer: T) => void
-  options?: QustionOptionsType | null
+  options?: QuestionOptionsType | null
 }
 
-export interface QustionOptionsType {
-  selectMax?: number
-  inputMin?: number
+export interface QuestionOptionsType {
+  max?: number
+  min?: number
   placeholder?: string
   items?: string[]
 }
@@ -27,5 +27,5 @@ export interface QuestionType {
   description: string
   type: QuestionInputType
   required: boolean
-  options: QustionOptionsType | null
+  options: QuestionOptionsType | null
 }
