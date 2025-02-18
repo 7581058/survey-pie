@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil'
 import styled, { StyleSheetManager } from 'styled-components'
 
 import { useAnswers } from '../../hooks/useAnswers'
+import { useRequiredOption } from '../../hooks/useRequiredOption'
 import { useStep } from '../../hooks/useStep'
 import { useSurveyId } from '../../hooks/useSurveyId'
 import { postAnswers } from '../../services/apis'
@@ -17,9 +18,10 @@ const ActionButtons = () => {
   const navigate = useNavigate()
   const answers = useAnswers()
   const questionsLength = useRecoilValue(questionsLengthSelector)
-  const isLast = questionsLength - 1 === step
   const [isLoading, setIsLoading] = useState(false)
-
+  const isLast = questionsLength - 1 === step
+  const isRequired = useRequiredOption()
+  const isblockToNext = isRequired ? !answers[step]?.length : false
   return (
     <StyleSheetManager shouldForwardProp={(prop) => isPropValid(prop)}>
       <ActionButtonsWrap>
@@ -31,7 +33,6 @@ const ActionButtons = () => {
         {isLast ? (
           <Button
             styletype="PRIMARY"
-            disabled={isLoading}
             onClick={() => {
               setIsLoading(true)
               postAnswers(surveyId, answers)
@@ -44,11 +45,16 @@ const ActionButtons = () => {
                   setIsLoading(false)
                 })
             }}
+            disabled={isLoading || isblockToNext}
           >
             {isLoading ? '제출 중입니다...' : '제출'}
           </Button>
         ) : (
-          <Button styletype="PRIMARY" onClick={() => navigate(`${step + 1}`)}>
+          <Button
+            styletype="PRIMARY"
+            onClick={() => navigate(`${step + 1}`)}
+            disabled={isblockToNext}
+          >
             다음
           </Button>
         )}
