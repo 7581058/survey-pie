@@ -16,7 +16,7 @@ const ActionButtons = () => {
   const step = useStep()
   const surveyId = useSurveyId()
   const navigate = useNavigate()
-  const answers = useAnswers()
+  const [answers, setAnswers] = useAnswers()
   const questionsLength = useRecoilValue(questionsLengthSelector)
   const [isLoading, setIsLoading] = useState(false)
   const isLast = questionsLength - 1 === step
@@ -37,6 +37,7 @@ const ActionButtons = () => {
               setIsLoading(true)
               postAnswers(surveyId, answers)
                 .then(() => {
+                  setAnswers([])
                   navigate(`/done/${surveyId}`)
                 })
                 .catch((err) => {
