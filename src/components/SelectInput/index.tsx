@@ -20,17 +20,20 @@ const SelectItem = ({ children, onChange, checked }: SelectItemProps) => {
   )
 }
 const SelectInput = ({
-  answer = [],
+  answer = { type: 'checkbox', value: [] },
   setAnswer,
   options,
-}: AnswerProps<number[]>) => {
+}: AnswerProps<{ type: 'checkbox'; value: number[] }>) => {
   const handleChange = (isChecked: boolean, index: number) => {
     if (isChecked) {
       const max = options?.max ?? 1
-      if (answer.length >= max) return
-      setAnswer([...answer, index])
+      if (answer.value.length >= max) return
+      setAnswer({ type: 'checkbox', value: [...answer.value, index] })
     } else {
-      setAnswer(answer.filter((item: number) => item !== index))
+      setAnswer({
+        type: 'checkbox',
+        value: answer.value.filter((item: number) => item !== index),
+      })
     }
   }
   return (
@@ -42,7 +45,7 @@ const SelectInput = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleChange(e.target.checked, index)
             }
-            checked={answer.includes(index)}
+            checked={answer.value.includes(index)}
           >
             {item}
           </SelectItem>

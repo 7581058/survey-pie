@@ -3,15 +3,15 @@ import styled from 'styled-components'
 import { AnswerProps } from '../../types'
 
 const TextAreaInput = ({
-  answer = '',
+  answer = { type: 'textarea', value: '' },
   setAnswer,
   options,
-}: AnswerProps<string>) => {
+}: AnswerProps<{ type: 'textarea'; value: string }>) => {
   return (
     <TextAreaStyle
-      value={answer}
+      value={answer.value}
       onChange={(e) => {
-        setAnswer(e.target.value)
+        setAnswer({ type: 'textarea', value: e.target.value })
       }}
       placeholder={options?.placeholder}
       {...(options?.max && { maxLength: options.max })}

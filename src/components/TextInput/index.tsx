@@ -2,17 +2,15 @@ import styled from 'styled-components'
 
 import { AnswerProps } from '../../types'
 const TextInput = ({
-  answer = '',
+  answer = { type: 'text', value: '' },
   setAnswer,
   options,
-}: AnswerProps<string>) => {
+}: AnswerProps<{ type: 'text'; value: string }>) => {
   return (
     <TextInputStyle
       type="text"
-      value={answer}
-      onChange={(e) => {
-        setAnswer(e.target.value)
-      }}
+      value={answer.value}
+      onChange={(e) => setAnswer({ type: 'text', value: e.target.value })}
       placeholder={options?.placeholder}
       //일반적으로는 maxLength={options?.max}
       //하지만 undefined일때도 동작함
