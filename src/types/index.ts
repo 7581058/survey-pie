@@ -1,13 +1,17 @@
-export type AnswerDataType = number[] | string
-export type AnswersType = (string | AnswerDataType[])[]
+export type AnswerDataType =
+  | { type: 'text'; value: string }
+  | { type: 'textarea'; value: string }
+  | { type: 'checkbox'; value: number[] }
+
+export type AnswersType = AnswerDataType[]
 
 export interface AnswerType {
   surveyId: number
-  data: AnswerDataType[]
+  data: AnswersType
   id: number
 }
 
-export interface AnswerProps<T> {
+export interface AnswerProps<T extends AnswerDataType> {
   answer: T
   setAnswer: (newAnswer: T) => void
   options?: QuestionOptionsType | null
