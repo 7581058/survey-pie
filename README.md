@@ -462,3 +462,73 @@ const ProgressIndicator = () => {
 ```
 
 이렇게 Array.from을 사용하여 bars를 배열로 생성하면, for문 안에서 hook을 호출하지 않고도 상태를 기반으로 ProgressBar 컴포넌트를 렌더링할 수 있습니다. 이렇게 변경하면, useRecoilValue는 반복문 내에서 호출되지 않으므로 React의 hook 규칙을 따를 수 있습니다.
+
+### answer 타입 모호함
+
+현재 프로젝트에서 각각의 설문조사 폼에서  
+각폼의 값 answer를 합쳐 answers 로 post를 하는데
+이때 각 폼은 textinput, textarea, checkbox 가 있고  
+각각 answer타입이 string, string, number[] 이다 보니
+answer를 유니온 타입으로 처음 지정했다가  
+각 폼마다 타입이 강제되지 않아 아무쪼록 모호해짐  
+그래서 타입을 강제하도록 변경함
+
+```javascript
+//기존
+export type AnswerDataType = number[] | string */
+//변경
+export type AnswerDataType =
+  | { type: 'text'; value: string }
+  | { type: 'textarea'; value: string }
+  | { type: 'checkbox'; value: number[] }
+```
+
+근데 여기서 제네릭으로 answer를 정의했는데
+굳이 필요할까 생각해보면
+
+```javascript
+export interface AnswerProps<T extends AnswerDataType> {
+  answer: T
+  setAnswer: (newAnswer: T) => void
+  options?: QuestionOptionsType | null
+}
+```
+
+`AnswerProps<T extends AnswerDataType>`는 각 input의 answer 타입을 강제하는 역할
+AnswerDataType은 부모(QuestionBox)에서 일관된 데이터 구조를 유지하는 역할로  
+useCurrentAnswer를 AnswerDataType을 반환하도록 하면, 부모에서 실수로 setAnswer를 잘못 사용할 가능성을 방지할 수 있음
+
+타입을 강제해서 각 input에서 set 할때 타입을 지정해서 set하고  
+post를 할때는 value만 추출해서 보내는 것으로 변경
+
+```javascript
+//input set
+const TextInput = ({
+  answer = { type: 'text', value: 'string' },,
+  setAnswer,
+  options,
+}: AnswerProps<{ type: 'text'; value: string }>) => {
+  return (
+    <TextInputStyle
+      type="text"
+      value={answer.value}
+      onChange={(e) => setAnswer({ type: 'text', value: e.target.value })}
+      placeholder={options?.placeholder}
+      ...
+  )
+}
+//post 요청
+export const postAnswers = (surveyId: number, data: AnswersType) => {
+  const transformedData = data.map((answer) => answer.value)
+  return mainApi.post('/answers', { surveyId, answers: transformedData })
+}
+```
+
+그리고 Body제네릭이 extends를 하는 이유는
+
+```javascript
+const Body = <T extends AnswerDataType>({})
+```
+
+T를 AnswerDataType의 서브타입으로 제한하는 것으로  
+answer가 AnswerDataType의 일부가 아닌 값이 올 수도 있기때문
