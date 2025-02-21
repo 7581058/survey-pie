@@ -21,7 +21,7 @@ const ActionButtons = () => {
   const [isLoading, setIsLoading] = useState(false)
   const isLast = questionsLength - 1 === step
   const isRequired = useRequiredOption()
-  const isblockToNext = isRequired ? !answers[step]?.length : false
+  const isblockToNext = isRequired ? !answers[step]?.value?.length : false
   return (
     <StyleSheetManager shouldForwardProp={(prop) => isPropValid(prop)}>
       <ActionButtonsWrap>

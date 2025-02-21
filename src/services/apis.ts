@@ -13,5 +13,6 @@ export const getSurvey = (surveyId: number) => {
 
 //답변 제출
 export const postAnswers = (surveyId: number, data: AnswersType) => {
-  return mainApi.post('/answers', { surveyId, data })
+  const transformedData = data.map((answer) => answer.value)
+  return mainApi.post('/answers', { surveyId, answers: transformedData })
 }

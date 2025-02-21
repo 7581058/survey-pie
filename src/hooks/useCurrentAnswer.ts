@@ -5,14 +5,14 @@ import { AnswerDataType } from '../types'
 import { useStep } from './useStep'
 
 export const useCurrentAnswer = (): [
-  AnswerDataType[] | string,
-  (newAnswer: AnswerDataType[] | string) => void,
+  AnswerDataType,
+  (newAnswer: AnswerDataType) => void,
 ] => {
   const [answers, setAnswers] = useRecoilState(answersAtom)
   const step = useStep()
 
   const answer = answers[step]
-  const setAnswer = (newAnswer: AnswerDataType[] | string) => {
+  const setAnswer = (newAnswer: AnswerDataType) => {
     setAnswers((answers) => {
       const newAnswers = [...answers]
       newAnswers[step] = newAnswer
