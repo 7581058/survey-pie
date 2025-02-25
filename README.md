@@ -10,19 +10,6 @@ api연동: axios
 
 </br>
 
-## survey-pie-admin
-
-### Stack
-
-전역 상태 관리: redux  
-api 연동: useSWR, axios  
-라우팅: react-router  
-스타일링: styled-components  
-데이터 불변성 유지: immer  
-ui라이브러리: antd
-
-</br>
-
 ## 아키텍쳐
 
 ![ar](/screen/service.png)
@@ -187,13 +174,11 @@ ui라이브러리: antd
 
 </br>
 
-## 트러블슈팅
+## 문제 해결
 
 ### TextInput
 
-```
-Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component.
-```
+> Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component.
 
 React에서 `<input>` 값이 "uncontrolled"에서 "controlled"로 변했을 때 발생  
 처음 value={undefined}였다가 나중에 value="something"처럼 변할 때 발생
@@ -237,9 +222,7 @@ value가 undefined일 때 빈 문자열로 처리하기
 
 ### styled components prop
 
-```
-styled-components: it looks like an unknown prop "styletype" is being sent through to the DOM, which will likely trigger a React console error. If you would like automatic filtering of unknown props, you can opt-into that behavior via <StyleSheetManager shouldForwardProp={...}> (connect an API like @emotion/is-prop-valid) or consider using transient props ($ prefix for automatic filtering.) Error Component Stack
-```
+> styled-components: it looks like an unknown prop "styletype" is being sent through to the DOM, which will likely trigger a React console error. If you would like automatic filtering of unknown props, you can opt-into that behavior via <StyleSheetManager shouldForwardProp={...}> (connect an API like @emotion/is-prop-valid) or consider using transient props ($ prefix for automatic filtering.) Error Component Stack
 
 styled-components에서 정의한 커스텀 prop (styletype)이 DOM 요소로 전달되면서 발생하는 문제  
 prop이 div나 span 같은 기본 태그로 전달되면 React가 알 수 없는 prop이 전달되었다고 경고하는 것
@@ -398,7 +381,7 @@ export const useCurrentAnswer = (): [
 
 ### 반복문 안에서 훅 사용
 
-React Hook "useRecoilValue" may be executed more than once. Possibly because it is called in a loop. React Hooks must be called in the exact same order in every component render.eslint
+> React Hook "useRecoilValue" may be executed more than once. Possibly because it is called in a loop. React Hooks must be called in the exact same order in every component render.eslint
 
 for문 안에서 useRecoilValue와 같은 hook을 사용하면 React에서 조건부나 반복문 내에서 hooks를 호출하는 문제를 발생시킬 수 있습니다. React hooks는 렌더링 시마다 같은 순서로 호출되어야 하는 규칙이 있기 때문에, for문 안에서 useRecoilValue가 호출되는 것은 문제가 됩니다.
 
@@ -462,6 +445,8 @@ const ProgressIndicator = () => {
 ```
 
 이렇게 Array.from을 사용하여 bars를 배열로 생성하면, for문 안에서 hook을 호출하지 않고도 상태를 기반으로 ProgressBar 컴포넌트를 렌더링할 수 있습니다. 이렇게 변경하면, useRecoilValue는 반복문 내에서 호출되지 않으므로 React의 hook 규칙을 따를 수 있습니다.
+
+</br>
 
 ### answer 타입 모호함
 
